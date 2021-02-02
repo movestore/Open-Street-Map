@@ -28,6 +28,7 @@
       }
     ]
   },
+  "createsArtifacts": true,
   "license": {
     "key": "MIT"
   },
