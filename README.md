@@ -17,7 +17,7 @@ moveStack in Movebank format
 Shiny user interface (UI)
 
 ### Artefacts
-no artefacts
+`openstreetmap.pdf`: pdf-file of Open Street Map of your data with initial border settings.
 
 ### Parameters 
 `num`: The amount of longitude and latitude units that shall be added at the edges of the data's bounding box for better visibility.
