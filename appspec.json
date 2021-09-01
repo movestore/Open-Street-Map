@@ -4,7 +4,7 @@
       "id": "num",
       "name": "Edge size",
       "description": "Define edge size to view coastlines (in degrees of lon/lat)",
-      "defaultValue": 1,
+      "defaultValue": 0.01,
       "type": "DOUBLE"
     },
 	{

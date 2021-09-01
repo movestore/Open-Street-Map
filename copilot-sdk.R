@@ -22,7 +22,7 @@ if(file.exists("configuration.json")) {
 #    args[["password"]] = "any-password"
 
 # Add your arguments of your r function here
-args[["num"]] = 5
+args[["num"]] = 0.1
 args[["col"]] = "darkgreen"
 
 #################################################################
