@@ -24,10 +24,16 @@ shinyModuleConfiguration <- function(id, input) {
 shinyModule <- function(input, output, session, data, col, num) {
   current <- reactiveVal(data)
 
+  if(length(grep(",",col))>0)
+  {
+    cols <- trimws(strsplit(col,",")[[1]])
+    colspt <- rep(cols,n.locs(data))
+  } else colspt <- col
+  
   map1 <- get_map(bbox(extent(data)+c(-num,num,-num,num)))
   pdfmap <- ggmap(map1) +
-    geom_path(data=as.data.frame(data),aes(x=location_long,y=location_lat,group=local_identifier),colour=col) +
-    geom_point(data=as.data.frame(data),aes(x=location_long,y=location_lat),colour=col,size=3)
+    geom_path(data=as.data.frame(data),aes(x=location_long,y=location_lat,group=local_identifier),colour=colspt) +
+    geom_point(data=as.data.frame(data),aes(x=location_long,y=location_lat),colour=colspt,size=3)
     
   ggsave(pdfmap, file = paste0(Sys.getenv(x = "APP_ARTIFACTS_DIR", "/tmp/"),"openstreetmap.pdf"))
   
@@ -35,8 +41,8 @@ shinyModule <- function(input, output, session, data, col, num) {
     map <- get_map(bbox(extent(data)+c(-input$num,input$num,-input$num,input$num)))
   
     out <- ggmap(map) +
-      geom_path(data=as.data.frame(data),aes(x=location_long,y=location_lat,group=local_identifier),colour=col) +
-      geom_point(data=as.data.frame(data),aes(x=location_long,y=location_lat),colour=col,size=3)
+      geom_path(data=as.data.frame(data),aes(x=location_long,y=location_lat,group=local_identifier),colour=colspt) +
+      geom_point(data=as.data.frame(data),aes(x=location_long,y=location_lat),colour=colspt,size=3)
     out
     })
 
