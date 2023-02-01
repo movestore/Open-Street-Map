@@ -1,20 +1,5 @@
 {
-  "settings": [
-    {
-      "id": "num",
-      "name": "Edge size",
-      "description": "Define edge size to view coastlines (in degrees of lon/lat)",
-      "defaultValue": 0.01,
-      "type": "DOUBLE"
-    },
-	{
-	  "id": "col",
-      "name": "Colour specification for track lines",
-      "description": "Provide one or more colour names for your tracks being plotted on the OpenStreetMap background. Use colour names as listed here: https://www.r-graph-gallery.com/42-colors-names.html or available by typing `colors()` into an R console. If you provide more than one colour, please separate the colour names by comme and make sure that the number corresponds to the number of animals in your dataset.",
-      "defaultValue": "red",
-      "type": "STRING"
-	}
-  ],
+  "settings": [],
   "dependencies": {
     "R": [
       {
@@ -25,6 +10,15 @@
       },
 	        {
         "name": "move"
+      },
+      {
+        "name":"randomcoloR"
+      },
+      {
+        "name":"shinycssloaders"
+      },
+      {
+        "name":"scales"
       }
     ]
   },
