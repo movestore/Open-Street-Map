@@ -2,7 +2,6 @@ library('move')
 library('ggmap')
 library('shiny')
 library("randomcoloR")
-library( "shinyWidgets")
 library("shinycssloaders")
 library("scales")
 
@@ -13,7 +12,7 @@ shinyModuleUserInterface <- function(id, label) {
   
   tagList(
     titlePanel("Open Street map"),
-    numericInput(ns("num"), "Define edge size to view coastlines (in degrees of lon/lat):", value=0.01, min = 0, max = 90,step=0.00001),
+    numericInput(ns("num"), "Define edge size to view coastlines (in degrees of lon/lat):", value=1, min = 0, max = 90,step=0.00001),
     withSpinner(plotOutput(ns("map"),height="80vh"))
   )
 }
