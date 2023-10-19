@@ -13,6 +13,10 @@ shinyModuleUserInterface <- function(id, label) {
   tagList(
     titlePanel("Open Street map"),
     numericInput(ns("num"), "Define edge size to view coastlines (in degrees of lon/lat):", value=1, min = 0, max = 90,step=0.00001),
+    sliderInput(inputId = ns("zoom"), 
+                label = "Resolution of background map", 
+                value = 5, min = 3, max = 18, step=1),
+    textInput(ns("api"), "Enter your stadia API key. (This is required until MoveApps provides its OSM mirror. Register with stamen, it is free: https://stadiamaps.com/stamen/onboarding/create-account", value = ""),
     withSpinner(plotOutput(ns("map"),height="80vh"))
   )
 }
@@ -26,7 +30,9 @@ shinyModule <- function(input, output, session, data) {
     n <- length(unique(mDF$indiv))
     if(n < 10){colspt <- brewer_pal(palette = "Set1")(n)}else{colspt <- distinctColorPalette(n)}
     
-    map <- get_map(bbox(extent(data)+c(-input$num,input$num,-input$num,input$num)),source="stamen") #,source="osm")
+    if(input$api=="") logger.info("no API key entered") else register_stadiamaps(input$api)
+    
+    map <- get_stadiamap(bbox(extent(data)+c(-input$num,input$num,-input$num,input$num)),source="stamen_terrain",zoom=input$zoom)
     osmap <- ggmap(map) +
       geom_path(data=mDF,aes(x=long,y=lat,group=indiv,colour=indiv)) +
       geom_point(data=mDF,aes(x=long,y=lat,colour=indiv),size=3)+
