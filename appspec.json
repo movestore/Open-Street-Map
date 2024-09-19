@@ -10,7 +10,8 @@
       {"name": "randomcoloR"},
       {"name": "shinycssloaders"},
       {"name": "scales"},
-      {"name": "shinyBS"}
+      {"name": "shinyBS"},
+      {"name": "prettymapr"}
     ]
   },
   "createsArtifacts": true,
