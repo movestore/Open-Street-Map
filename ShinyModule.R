@@ -21,7 +21,7 @@ shinyModuleUserInterface <- function(id, label) {
     titlePanel("Open Street Map"),
     sidebarLayout(
       sidebarPanel(
-        checkboxInput(ns("legend"), label = "Show ledgend with track names", value = FALSE),
+        checkboxInput(ns("legend"), label = "Show legend with track names", value = FALSE),
         radioButtons(ns("maptype"),label = "Background map types",
                      choices = list("OSM" = "osm", "Humanitarian" = "hotstyle", "Carto Dark" = "cartodark", "Carto Light" = "cartolight"),
                      selected = "osm" ),
@@ -29,8 +29,8 @@ shinyModuleUserInterface <- function(id, label) {
         
         radioButtons(ns("zoomin"),label = "Resolution of background map",
                      choices = list("very low" = -2, "low" = -1, "high" = 0, "very high" = 1),
-                     selected = -2 ),
-        bsTooltip(id=ns("zoomin"), title="Chosing a very high resolution for data covering a large area might lead the App to crash", placement = "bottom", trigger = "hover", options = list(container = "body"))
+                     selected = -2 )#,
+        # bsTooltip(id=ns("zoomin"), title="Chosing a very high resolution for data covering a large area might lead the App to crash", placement = "bottom", trigger = "hover", options = list(container = "body"))
       ,width = 2),
       mainPanel(
         withSpinner(plotOutput(ns("map"),height="80vh"))
@@ -44,6 +44,9 @@ shinyModule <- function(input, output, session, data) {
   current <- reactiveVal(data)
   
   output$map <- renderPlot({
+    n <- length(unique(mt_track_id(data)))
+    if(n < 10){colspt <- brewer_pal(palette = "Set1")(n)}else{colspt <- distinctColorPalette(n)}
+    id_col <- sym(mt_track_id_column(data))
     osmap <- ggplot() +
       ggspatial::annotation_map_tile(zoomin = as.numeric(input$zoomin), type=input$maptype) +
       ggspatial::annotation_scale(aes(location="br")) +
